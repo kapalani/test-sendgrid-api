@@ -8,8 +8,7 @@ except Exception as e:
 USER_NAME = "kavin"
 PASSWORD = "Netapp123"
 
-def testScenarioOne():
-    sg = sendgrid.SendGridClient(USER_NAME, PASSWORD)
+def config_mail():
     message = sendgrid.Mail()
     message.add_to("<kavinkumar_p@yahoo.co.in>")
     message.add_to_name("Kumar, Palani")
@@ -18,10 +17,13 @@ def testScenarioOne():
     message.set_subject("Test message.,")
     message.set_text("Test text")
     message.set_html("<i><b>Test HTML</b></i>")
-    message.add_cc("kavin@netapp.com")
-    message.add_bcc("sukanyamani2289@gmail.com")
     message.set_replyto("sukanyamani2289@gmail.com")
     message.set_date(rfc822.formatdate())
+    return message
+
+def testScenarioOne():
+    sg = sendgrid.SendGridClient(USER_NAME, PASSWORD)
+    message = config_mail();
     status, msg = sg.send(message)
 
     if msg[12:19] == 'success':
@@ -29,7 +31,20 @@ def testScenarioOne():
     else:
         print "Test Scenario 1 failed"
 
+def testScenariotwo():
+    sg = sendgrid.SendGridClient(USER_NAME, PASSWORD)
+    message = config_mail();
+    message.add_cc("kavin@netapp.com")
+    status, msg = sg.send(message)
+
+    if msg[12:19] == 'success':
+        print "Test Scenario 2 passed"
+    else:
+        print "Test Scenario 2 failed"
+
+
 if __name__ == '__main__':
-    testScenarioOne();
+    testScenarioOne()
+    testScenariotwo()
 
 
