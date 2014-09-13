@@ -55,11 +55,15 @@ def testScenarioThree():
     message.add_attachment("Pete.mp4", "Pete.mp4")
     status, msg = sg.send(message)
 
-    if status == 200:
-        print "Test Scenario 3 passed"
-    else:
+    try:
+        if status == 200:
+            print "Test Scenario 3 passed"
+        else:
+            print "Test Scenario 3 failed"
+            print msg
+    except Exception as e:
         print "Test Scenario 3 failed"
-        print msg
+        print sendgrid.SendGridError(e);
 
 def testScenarioFour():
     sg = setup();
@@ -74,6 +78,7 @@ def testScenarioFour():
             print "Test Scenario 4 failed"
             print msg
     except Exception as e:
+        print "Test Scenario 4 failed"
         print sendgrid.SendGridError(e);
 
 if __name__ == '__main__':
