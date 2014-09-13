@@ -26,41 +26,60 @@ def config_mail():
     return message
 
 def testScenarioOne():
-    sg = setup();
-    message = config_mail();
+    sg = setup()
+    message = config_mail()
     status, msg = sg.send(message)
 
-    if msg[12:19] == 'success':
+    if status == 200:
         print "Test Scenario 1 passed"
     else:
         print "Test Scenario 1 failed"
+        print msg
 
 def testScenariotwo():
     sg = setup()
-    message = config_mail();
+    message = config_mail()
     message.add_cc("kavin@netapp.com")
     status, msg = sg.send(message)
 
-    if msg[12:19] == 'success':
+    if status == 200:
         print "Test Scenario 2 passed"
     else:
         print "Test Scenario 2 failed"
+        print msg
 
 def testScenarioThree():
     sg = setup()
     message = config_mail()
     message.add_attachment("abc.txt", "abc.txt")
+    message.add_attachment("Pete.mp4", "Pete.mp4")
     status, msg = sg.send(message)
 
-    if msg[12:19] == 'success':
+    if status == 200:
         print "Test Scenario 3 passed"
     else:
         print "Test Scenario 3 failed"
+        print msg
 
+def testScenarioFour():
+    sg = setup();
+    message = config_mail()
+    message.add_attachment("TaylorSwift.mp4", "TayLorSwift.mp4")
+
+    try:
+        status, msg = sg.send(message)
+        if status == 200:
+            print "Test Scenario 4 passed"
+        else:
+            print "Test Scenario 4 failed"
+            print msg
+    except Exception as e:
+        print sendgrid.SendGridError(e);
 
 if __name__ == '__main__':
     testScenarioOne()
     testScenariotwo()
     testScenarioThree()
+    testScenarioFour()
 
 
