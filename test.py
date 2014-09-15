@@ -1,19 +1,21 @@
-import sendgrid
 import sys
 try:
     import rfc822
 except Exception as e:
     import email.utils as rfc822
 
+from sendgrid import SendGridClient, Mail
+from sendgrid.exceptions import SendGridError
+
 USER_NAME = "kavin"
 PASSWORD = "Netapp123"
 
 def setup():
-    sg = sendgrid.SendGridClient(USER_NAME, PASSWORD)
+    sg = SendGridClient(USER_NAME, PASSWORD)
     return sg
 
 def config_mail():
-    message = sendgrid.Mail()
+    message = Mail()
     message.add_to("<kavinkumar_p@yahoo.co.in>")
     message.add_to_name("Kumar, Palani")
     message.set_from("kavinpalni@gmail.com")
@@ -63,10 +65,10 @@ def testScenarioThree():
             print msg
     except Exception as e:
         print "Test Scenario 3 failed"
-        print sendgrid.SendGridError(e);
+        print SendGridError(e);
 
 def testScenarioFour():
-    sg = setup();
+    sg = setup()
     message = config_mail()
     message.add_attachment("TaylorSwift.mp4", "TayLorSwift.mp4")
 
@@ -79,7 +81,7 @@ def testScenarioFour():
             print msg
     except Exception as e:
         print "Test Scenario 4 failed"
-        print sendgrid.SendGridError(e);
+        print SendGridError(e);
 
 if __name__ == '__main__':
     testScenarioOne()
