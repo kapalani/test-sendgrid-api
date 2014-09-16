@@ -34,6 +34,7 @@ def testScenarioOne():
 
     if status == 200:
         print "Test Scenario 1 passed"
+        print msg
     else:
         print "Test Scenario 1 failed"
         print msg
@@ -46,6 +47,7 @@ def testScenariotwo():
 
     if status == 200:
         print "Test Scenario 2 passed"
+        print msg
     else:
         print "Test Scenario 2 failed"
         print msg
@@ -60,6 +62,7 @@ def testScenarioThree():
     try:
         if status == 200:
             print "Test Scenario 3 passed"
+            print msg
         else:
             print "Test Scenario 3 failed"
             print msg
@@ -75,12 +78,10 @@ def testScenarioFour():
     try:
         status, msg = sg.send(message)
         if status == 200:
-            print "Test Scenario 4 passed"
-        else:
             print "Test Scenario 4 failed"
             print msg
     except Exception as e:
-        print "Test Scenario 4 failed"
+        print "Test Scenario 4 passed"
         print SendGridError(e);
 
 if __name__ == '__main__':
